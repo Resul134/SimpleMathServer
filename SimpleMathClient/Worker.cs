@@ -18,21 +18,24 @@ namespace SimpleMathClient
                 using (StreamReader reader = new StreamReader(clientSocket.GetStream()))
                 using (StreamWriter writer = new StreamWriter(clientSocket.GetStream()))
                 {
+                    while (true)
+                    {
+                        string str = Console.ReadLine();
+                        writer.WriteLine(str);
 
-                    string str = Console.ReadLine();
-                    writer.WriteLine(str);
+                        writer.Flush();
 
-                    writer.Flush();
+                        string stringReader = reader.ReadLine();
+                        Console.WriteLine(stringReader);
 
-                    string stringReader = reader.ReadLine();
-                    Console.WriteLine(stringReader);
 
+
+
+
+                        writer.Close();
+                        reader.Close();
+                    }
                     
-
-                  
-
-                    writer.Close();
-                    reader.Close();
                     
                     
 

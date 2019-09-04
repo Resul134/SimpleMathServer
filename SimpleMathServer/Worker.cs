@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -59,44 +60,44 @@ namespace SimpleMathServer
             using (StreamReader reader = new StreamReader(tempsocket.GetStream()))
             using (StreamWriter writer = new StreamWriter(tempsocket.GetStream()))
             {
-
+                CultureInfo info;
 
                 while (true)
                 {
-                    string str = reader.ReadLine();
+                    var str = reader.ReadLine();
 
                     string[] arr = str.Split(' ');
                     if (arr[0].Contains("add"))
                     {
-                        int result = int.Parse(arr[1]) + int.Parse(arr[2]);
-                        writer.WriteLine(" = "+ result );
-                        Console.WriteLine(result);
+                        
+                        double result = double.Parse(arr[1], new CultureInfo("da-DK")) + double.Parse(arr[2], new CultureInfo("da-DK"));
+                        writer.WriteLine("Result is = " + result);
+                        Console.WriteLine("Result is = " + result);
                         writer.Flush();
 
 
                     }
                     else if (arr[0].Contains("divide"))
                     {
-                        int result = int.Parse(arr[1]) / int.Parse(arr[2]);
-                        writer.WriteLine(" = " + result);
-                        Console.WriteLine(result);
+                        double result = double.Parse(arr[1], new CultureInfo("da-DK")) / double.Parse(arr[2], new CultureInfo("da-DK"));
+                        writer.WriteLine("Result is = " + result);
+                        Console.WriteLine("Result is =" + result);
                         writer.Flush();
                     }
                     else if(arr[0].Contains("minus"))
                     {
-                        int result = int.Parse(arr[1]) - int.Parse(arr[2]);
-                        writer.WriteLine(" = " + result);
-                        Console.WriteLine(result);
+                        double result = double.Parse(arr[1], new CultureInfo("da-DK")) - double.Parse(arr[2], new CultureInfo("da-DK"));
+                        writer.WriteLine("Result is = " + result);
+                        Console.WriteLine("Result is =" + result);
                         writer.Flush();
                     }
                     else if (arr[0].Contains("mult"))
                     {
-                        int result = int.Parse(arr[1]) * int.Parse(arr[2]);
-                        writer.WriteLine(" = " + result);
-                        Console.WriteLine(result);
+                        double result = double.Parse(arr[1], new CultureInfo("da-DK")) * double.Parse(arr[2], new CultureInfo("da-DK"));
+                        writer.WriteLine("Result is = " + result);
+                        Console.WriteLine("Result is =" + result);
                         writer.Flush();
                     }
-                    tempsocket.Close();
                     
 
 
