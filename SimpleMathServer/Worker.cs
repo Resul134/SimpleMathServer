@@ -36,7 +36,7 @@ namespace SimpleMathServer
                 Task.Run(() =>
                 { //indsætter en metode (delegate)
                     TcpClient tempSocket = socket;
-                    DoClient(tempSocket);
+                    DoClientMath(tempSocket);
 
                 });
 
@@ -49,8 +49,13 @@ namespace SimpleMathServer
 
         }
 
-        public void DoClient(TcpClient tempsocket)
+        public void DoClientMath(TcpClient tempsocket)
         {
+
+            //  Culture info cult = new culturefure info("da-da)),
+               // double result;
+            // result = double.parse(strsplit[1], cult) 
+
             using (StreamReader reader = new StreamReader(tempsocket.GetStream()))
             using (StreamWriter writer = new StreamWriter(tempsocket.GetStream()))
             {
