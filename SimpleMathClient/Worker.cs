@@ -32,9 +32,10 @@ namespace SimpleMathClient
 
 
 
-                        writer.Close();
-                        reader.Close();
+
+                        
                     }
+
                     
                     
                     

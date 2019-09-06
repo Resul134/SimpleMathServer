@@ -38,8 +38,12 @@ namespace SimpleMathServer
                 { //indsætter en metode (delegate)
                     TcpClient tempSocket = socket;
                     DoClientMath(tempSocket);
+                    DoclientDate(tempSocket);
+                    
 
                 });
+                
+
 
             }
 
@@ -60,45 +64,51 @@ namespace SimpleMathServer
             using (StreamReader reader = new StreamReader(tempsocket.GetStream()))
             using (StreamWriter writer = new StreamWriter(tempsocket.GetStream()))
             {
-                CultureInfo info;
 
                 while (true)
                 {
                     var str = reader.ReadLine();
 
-                    string[] arr = str.Split(' ');
-                    if (arr[0].Contains("add"))
+
+                    if (str != null)
                     {
-                        
-                        double result = double.Parse(arr[1], new CultureInfo("da-DK")) + double.Parse(arr[2], new CultureInfo("da-DK"));
-                        writer.WriteLine("Result is = " + result);
-                        Console.WriteLine("Result is = " + result);
-                        writer.Flush();
+                        string[] arr = str.Split(' ');
+
+                        if (arr[0].Contains("add"))
+                        {
 
 
+                            double result = double.Parse(arr[1], new CultureInfo("da-DK")) + double.Parse(arr[2], new CultureInfo("da-DK"));
+                            writer.WriteLine("Result is = " + result);
+                            Console.WriteLine("Result is = " + result);
+                            writer.Flush();
+
+
+                        }
+                        else if (arr[0].Contains("divide"))
+                        {
+                            double result = double.Parse(arr[1], new CultureInfo("da-DK")) / double.Parse(arr[2], new CultureInfo("da-DK"));
+                            writer.WriteLine("Result is = " + result);
+                            Console.WriteLine("Result is =" + result);
+                            writer.Flush();
+                        }
+                        else if (arr[0].Contains("minus"))
+                        {
+                            double result = double.Parse(arr[1], new CultureInfo("da-DK")) - double.Parse(arr[2], new CultureInfo("da-DK"));
+                            writer.WriteLine("Result is = " + result);
+                            Console.WriteLine("Result is =" + result);
+                            writer.Flush();
+                        }
+                        else if (arr[0].Contains("mult"))
+                        {
+                            double result = double.Parse(arr[1], new CultureInfo("da-DK")) * double.Parse(arr[2], new CultureInfo("da-DK"));
+                            writer.WriteLine("Result is = " + result);
+                            Console.WriteLine("Result is =" + result);
+                            writer.Flush();
+                        }
+
                     }
-                    else if (arr[0].Contains("divide"))
-                    {
-                        double result = double.Parse(arr[1], new CultureInfo("da-DK")) / double.Parse(arr[2], new CultureInfo("da-DK"));
-                        writer.WriteLine("Result is = " + result);
-                        Console.WriteLine("Result is =" + result);
-                        writer.Flush();
-                    }
-                    else if(arr[0].Contains("minus"))
-                    {
-                        double result = double.Parse(arr[1], new CultureInfo("da-DK")) - double.Parse(arr[2], new CultureInfo("da-DK"));
-                        writer.WriteLine("Result is = " + result);
-                        Console.WriteLine("Result is =" + result);
-                        writer.Flush();
-                    }
-                    else if (arr[0].Contains("mult"))
-                    {
-                        double result = double.Parse(arr[1], new CultureInfo("da-DK")) * double.Parse(arr[2], new CultureInfo("da-DK"));
-                        writer.WriteLine("Result is = " + result);
-                        Console.WriteLine("Result is =" + result);
-                        writer.Flush();
-                    }
-                    
+
 
 
                 }
@@ -110,6 +120,54 @@ namespace SimpleMathServer
 
 
             }
+
+        }
+
+        public void DoclientDate(TcpClient datetempSocket)
+        {
+
+            
+
+            using (StreamReader reader = new StreamReader(datetempSocket.GetStream()))
+            using (StreamWriter writer = new StreamWriter(datetempSocket.GetStream()))
+            {
+
+                while (true)
+                {
+
+                   
+                    string splitString = reader.ReadLine();
+
+                    if (splitString != null)
+                    {
+                        string[] splitDate = splitString.Split(":");
+
+                        try
+                        {
+                            if (splitDate[0] == "Date")
+                            {
+                                DateTime result = DateTime.ParseExact(splitDate[1], "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+                                writer.WriteLine(result + " The date is valid");
+                                writer.Flush();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+
+                            Console.WriteLine("Invalid - " + ex);
+                            throw;
+                        }
+                    }
+
+                    
+                    
+                }
+                
+                
+            }
+
+
+
 
         }
 
